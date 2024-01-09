@@ -12,13 +12,14 @@
 		color: black;
 	}
 	.nav-area {
+		width:100%;
 		background-color: black;
 		text-align: center;
 		color: white;
 		height: 42px;
 	}
 	.nav-area td {
-		width: 250px;
+		width: 25%;
 		height: 40px;
 		vertical-align: middle;
 		font-size: 16px;
@@ -81,7 +82,7 @@
 		<tr>
 			<td>HOME</td>
 			<td>공지사항</td>
-			<td>게시판</td>
+			<td onclick="location.href='list.bo?nowPage=1'">게시판</td>
 			<td>ETC</td>
 		</tr> 
 	</table>

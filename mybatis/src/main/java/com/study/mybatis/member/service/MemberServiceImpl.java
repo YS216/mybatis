@@ -27,8 +27,16 @@ public class MemberServiceImpl implements MemberService {
 	
 	@Override
 	public int insertMember(Member m) {
+		SqlSession sqlSession = Template.getSqlSession();
+		int result = mDao.insertMember(sqlSession, m);
 		
-		return 0;
+		// mybatis-config.xml에서 내가 직접 트랜잭션을 관리하겠다고 설정함.
+		// 직접 commit()을 함
+		if(result > 0 ) {
+			sqlSession.commit();
+		}
+		sqlSession.close();
+		return result;
 	}
 
 

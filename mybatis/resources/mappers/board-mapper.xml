@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace : 해당 매퍼의 고유한 별칭 -->
+<mapper namespace="boardMapper">
+	<resultMap type="Board" id="boardResultSet">
+		<result column="board_no" property="board_no" />
+		<result column="board_title" property="board_title" />
+		<result column="board_content" property="board_content" />
+		<result column="board_writer" property="board_writer" />
+		<result column="count" property="count" />
+		<result column="create_date" property="create_date" />
+	</resultMap>
+
+	<select id="selectTotalRecord" resultType="_int">
+		select count(*)
+		  from board
+		 where status = 'Y'
+	</select>
+	
+	<select id="selectList" resultMap = "boardResultSet">
+		select *
+		  from board
+		 where status = 'Y'
+		order by board_no desc  
+	</select>
+	
+	<select id="selectSearchCount" resultType="_int">
+		select count(*)
+		  from board b
+		 where status='Y'
+		 <if test="keyField == 'writer'">
+		 	and board_writer
+		 </if>
+		 <if test="keyField == 'title'">
+		 	and board_title
+		 </if>
+		 <if test="keyField == 'content'">
+		 	and board_content
+		 </if>
+		 like '%' || #{keyWord} || '%'
+	</select>
+	
+	<select id="selectSearchList" resultMap="boardResultSet">
+		select *
+		  from board
+		 where status='Y'
+		 <choose>
+		 	<when test="keyField=='writer'">
+		 		and board_writer
+		 	</when>
+		 	<when test="keyField == 'title'">
+		 		and board_title
+		 	</when>
+		 	<otherwise>
+		 		and board_content
+		 	</otherwise>
+		 </choose>
+		 like '%' || #{keyWord} || '%'
+		 order by board_no desc
+	</select>
+</mapper>
+
+
+
+

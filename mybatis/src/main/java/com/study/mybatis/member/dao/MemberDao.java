@@ -43,6 +43,10 @@ public class MemberDao {
 	public int checkId(SqlSession sqlSession, String user_id) {
 		return sqlSession.selectOne("memberMapper.checkId", user_id);
 	}
+	
+	public int insertMember(SqlSession sqlSession, Member m) {
+		return sqlSession.insert("memberMapper.insertMember", m);
+	}
 }
 
 
