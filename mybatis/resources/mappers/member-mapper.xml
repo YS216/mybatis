@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace : 해당 매퍼의 고유한 별칭 -->
+<mapper namespace="memberMapper">
+
+	<!-- 
+		* DML문일 경우
+		  <insert|update|delete id="식별자" [parameterType="전달받은 자바타입(풀클래스명)|별칭"]>
+		  		구문 넣기
+		  </insert|update|delete>
+		  
+		* SELECT문일 경우
+		  <select id="식별자" [parameterType="전달받은 자바타입(풀클래스명)|별칭"] resultMap|resultType>
+		  	 resultType="조회결과를 반환하고자 하는 자바타입" | resultMap = "조회결과를 매핑할 resultMpa의 id"
+		  </select>
+	 -->
+	 
+	 <!-- 
+	 	* resultMap : 마이바티스의 핵심 기능중 하나
+	 	   ResultSet으로부터 조회된 컬럼값을 하나씩 가져와서 내가 지정한 vo객체의 각 필드에 담는(매핑) 역할
+	 	   
+	 	  <resultMap id="식별자" type="조회결과를 담아서 반환해줄 vo객체타입(풀클래스명)|별칭">
+	 	  	<result column="조회된결과를 뽑고자하는 DB컬럼명" property="해당 결과를 담고자하는 필드명" />
+	 	  	<result column="조회된결과를 뽑고자하는 DB컬럼명" property="해당 결과를 담고자하는 필드명" />
+	 	  	<result column="조회된결과를 뽑고자하는 DB컬럼명" property="해당 결과를 담고자하는 필드명" />
+	 	  	...
+	 	  </resultMap>
+	  -->
+
+	<resultMap type="Member" id="memberResultSet">
+		<result column="user_id" property="user_id"/>
+		<result column="USER_PWD" property="user_pwd"/>
+		<result column="user_name" property="user_name"/>
+		<result column="email" property="email"/>
+		<result column="birthday" property="birthday"/>
+		<result column="gender" property="gender"/>
+		<result column="phone" property="phone"/>
+		<result column="address" property="address"/>
+		<result column="enroll_date" property="enroll_date"/>
+		<result column="modify_date" property="modify_date"/>
+		<result column="status" property="status"/>
+	</resultMap>
+		  
+	<select id="loginMember" resultMap="memberResultSet" parameterType="Member">
+	  select *
+	    from member
+	   where user_id = #{user_id} and user_pwd = #{user_pwd} and status = 'Y'
+	</select>
+	
+	<select id="checkId" resultType="_int">
+		select count(*)
+		  from member
+		 where user_id = #{user_id}
+	</select>
+</mapper>
+
+
+
+
+
+
+

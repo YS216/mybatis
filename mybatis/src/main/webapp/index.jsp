@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<jsp:forward page="WEB-INF/views/main.jsp" />
 	<!-- 
 	* 프레임워크
 	  - 개발자가 보다 편리한 환경에서 개발할 수 있도록 제공해주는 틀, 뼈대
