@@ -7,34 +7,30 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-	body {
-		margin: 0 auto;
-		text-align:center;
-	}
-	.outer{
-		width:700px;
-		text-align:center;
-	}
     #list-area {
     	width:100%;
         border: 1px solid;
         text-align: center;
-        border-collapse: collapse;
+    	border-collapse: collapse;
     }
-    #list-area>thead>th{
+    #list-area th, #list-area td{
         border: 1px solid;
+        height: 30px;
     }
-    #list-area>tbody>td{
-        border: 1px solid;
-        border-collapse: collapse;
+    
+    #ellip {
+    	overflow: hidden;  		
+		text-overflow: ellipsis;  	
+		white-space: nowrap;
     }
+    
     #search-area{text-align: center;}
 </style>
 </head>
 <body>
 	<jsp:include page="../common/menubar.jsp" />
 	
-    <div class="outer" align="center">
+    <div class="outer">
         <h1 align="center">게시판</h1>
 
         <div id="search-area">
@@ -50,23 +46,24 @@
             </form>
         </div>
         <br>
-        totalRecord : ${ pi.totalRecord }
+        <div align="left">총 게시글의 수 : ${ pi.totalRecord }</div>
+        <br>
         <table id="list-area" align="center">
             <thead>
-                <th width="15%">글번호</th>
-                <th width="35%">제목</th>
+                <th width="10%">글번호</th>
+                <th width="47%">제목</th>
                 <th width="15%">작성자</th>
-                <th width="15%">조회수</th>
-                <th width="20%">작성일</th>
+                <th width="10%">조회수</th>
+                <th width="18%">작성일</th>
             </thead>
             <tbody>
 				<c:forEach var="b" items="${list}" varStatus="s">
 					<tr>
 						<%-- <td>${b.board_no}</td> --%>
-						<td>${s.count}</td>
-						<td>${b.board_title}</td>
+						<td>${(pi.totalRecord - (pi.nowPage-1)*pi.numPerPage)-s.index}</td>
+						<td id="ellip"><a href="detail.bo?bno=${b.board_no}">${b.board_title}</a></td>
 						<td>${b.board_writer}</td>
-						<td>${b.count}</td>
+						<td>${b.count}</td>                        
 						<td>${b.create_date}</td>
 					</tr>
 				</c:forEach>
@@ -81,7 +78,7 @@
 						<a href="list.bo?nowPage=${pi.nowPage-1}">[이전]</a>
 					</c:when>
 					<c:otherwise>
-						<a href="">[이전]</a>
+						<a href="search.bo?nowPage=${pi.nowPage-1}&keyField=${keyField}&keyWord=${keyWord}">[이전]</a>
 					</c:otherwise>
 				</c:choose>
 			</c:if>
@@ -100,7 +97,14 @@
 						</c:choose>
 					</c:when>
 					<c:otherwise>
-						<a href="">[${p}]</a>
+						<c:choose>
+							<c:when test="${p eq pi.nowPage}">
+								<a href="search.bo?nowPage=${p}&keyField=${keyField}&keyWord=${keyWord}" style="color:hotpink">[${p}]</a>
+							</c:when>
+							<c:otherwise>
+								<a href="search.bo?nowPage=${p}&keyField=${keyField}&keyWord=${keyWord}">[${p}]</a>
+							</c:otherwise>
+						</c:choose>
 					</c:otherwise>
 				</c:choose>
 			</c:forEach>
@@ -112,7 +116,7 @@
 						<a href="list.bo?nowPage=${pi.nowPage+1}">[다음]</a>
 					</c:when>
 					<c:otherwise>
-						<a href="">[다음]</a>
+						<a href="search.bo?nowPage=${pi.nowPage+1}&keyField=${keyField}&keyWord=${keyWord}">[다음]</a>
 					</c:otherwise>
 				</c:choose>
 			</c:if>

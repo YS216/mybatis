@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 
 import com.study.mybatis.board.vo.Board;
 import com.study.mybatis.board.vo.Reply;
+import com.study.mybatis.common.Template;
 import com.study.mybatis.common.vo.PageInfo;
 
 public class BoardDao {
@@ -47,22 +48,21 @@ public class BoardDao {
 	}
 	
 	public int increaseCount(SqlSession sqlSession, int board_no) {
-		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.update("boardMapper.increaseCount", board_no);
 	}
 
 	
 	public Board selectBoard(SqlSession sqlSession, int board_no) {
-		// TODO Auto-generated method stub
-		return null;
+		return sqlSession.selectOne("boardMapper.selectBoard", board_no);
 	}
 
 	
 	public ArrayList<Reply> selectReplyList(SqlSession sqlSession, int board_no) {
-		// TODO Auto-generated method stub
-		return null;
+		return (ArrayList)sqlSession.selectList("boardMapper.selectReplyList", board_no);
 	}
 
-	
+	public int insertReply(SqlSession sqlSession, Reply reply) {
+		return sqlSession.insert("boardMapper.insertReply", reply);
+	}
 
 }

@@ -18,7 +18,6 @@ public class BoardListController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int totalRecord = new BoardServiceImpl().selectTotalRecord();
-		System.out.println(totalRecord);
 		
 		int nowPage = Integer.parseInt(request.getParameter("nowPage"));
 		

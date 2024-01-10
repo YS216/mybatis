@@ -13,7 +13,7 @@
 	}
 	.nav-area {
 		width:100%;
-		background-color: black;
+		background-color: #6AAFE6;
 		text-align: center;
 		color: white;
 		height: 42px;
@@ -28,6 +28,10 @@
 	.nav-area td:hover {
 		background-color: gray;
 		cursor: pointer;
+	}
+	.outer{
+		width:700px;
+		margin: 0 auto;
 	}
 </style>
 </head>
