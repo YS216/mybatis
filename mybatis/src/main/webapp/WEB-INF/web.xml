@@ -89,4 +89,24 @@
     <servlet-name>BoardDetailController</servlet-name>
     <url-pattern>/detail.bo</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>MyPageController</display-name>
+    <servlet-name>MyPageController</servlet-name>
+    <servlet-class>com.study.mybatis.mypage.controller.MyPageController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MyPageController</servlet-name>
+    <url-pattern>/myPage.me</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>MyUpdateController</display-name>
+    <servlet-name>MyUpdateController</servlet-name>
+    <servlet-class>com.study.mybatis.mypage.controller.MyUpdateController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MyUpdateController</servlet-name>
+    <url-pattern>/update.me</url-pattern>
+  </servlet-mapping>
 </web-app>
